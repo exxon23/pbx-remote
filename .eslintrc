@@ -1,0 +1,49 @@
+{
+    "parser": "babel-eslint",
+    "plugins": [
+      "react",
+      "prettier",
+      "react-hooks"
+    ],
+    "globals": {
+      "console": true,
+      "window": true,
+      "document": true,
+      "localStorage": true,
+      "setTimeout": true,
+      "FormData": true,
+      "require": true,
+      "module": true,
+      "__dirname": true,
+      "process": true,
+      "exports": true,
+      "Promise": true,
+      "Array": true,
+      "global": true,
+      "Map": true
+    },
+    "rules": {
+      "no-console": 0,
+      "no-undef": 1,
+      "no-unused-vars": 1,
+      "semi": ["error", "never"],
+      "object-curly-spacing": ["error", "always"],
+      "allowMultiplePropertiesPerLine": 0,
+      "prettier/prettier": ["error", { "singleQuote": true }],
+      "react/display-name": 0,
+      "react/prop-types": 1,
+      "no-mixed-spaces-and-tabs": 2,
+      "react-hooks/rules-of-hooks": "error",
+      "react/jsx-sort-props": [
+        "error",
+        {
+          "noSortAlphabetically": false,
+          "ignoreCase": false,
+          "callbacksLast": true,
+          "shorthandLast": false,
+          "reservedFirst": true
+        }
+      ]
+    },
+    "extends": ["eslint:recommended", "plugin:react/recommended", "prettier", "prettier/react"]
+  }

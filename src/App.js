@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { ApolloProvider } from 'react-apollo-hooks'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import getClient from './graphql/apolloClient'
+import Content from './containers/content'
+import ControlPanel from './containers/controlPanel'
+import { ContextProvider } from './context/context'
+import initialState from './context/initialState'
 
-export default App;
+import './App.scss'
+
+const App = () => (
+  <ApolloProvider client={getClient('ipbxapi-devel.voipex.io')}>
+    <ContextProvider initialState={initialState}>
+      <div className="App">
+        <Content />
+        <ControlPanel />
+      </div>
+    </ContextProvider>
+  </ApolloProvider>
+)
+
+export default App
