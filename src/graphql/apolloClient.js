@@ -45,8 +45,7 @@ const getClient = url =>
   new ApolloClient({
     link: createNetworkInterface(url),
     cache: new InMemoryCache({
-      // Note: you can't add o.queueId, because it's key is not per agent, and same queue for different agents has same key
-      // dataIdFromObject: o => o.id || o.key || o.agentId || o.anvilId // || o.queueId
+      dataIdFromObject: o => o.id || o.key || o.agentId || o.anvilId
     }),
     connectToDevTools: true
   })

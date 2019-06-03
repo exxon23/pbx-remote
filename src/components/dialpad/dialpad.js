@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react'
+import PropTypes from 'prop-types'
 import gql from 'graphql-tag'
 import { useMutation } from 'react-apollo-hooks'
 
 import { Context } from '../../context/context'
 import './dialpad.scss'
 
-const MAKE_CALL = gql`
+const MUTATION_CALL = gql`
   mutation makeCall($number: String!) {
     sendRemoteCommand(command: makeCall, parameters: { number: $number })
   }
@@ -26,6 +27,15 @@ const DialpadKeys = ({ dialNumber, onDialNumberChange }) => (
     ))}
   </div>
 )
+
+DialpadKeys.propTypes = {
+  dialNumber: PropTypes.string,
+  onDialNumberChange: PropTypes.func
+}
+
+DialpadKeys.defaultProps = {
+  onDialNumberChange: () => {}
+}
 
 // content of this component is based on global state - if user is not calling, show makeCall button
 // if user is calling, show endCall button
@@ -48,6 +58,18 @@ const DialpadControls = ({ isCalling, dialNumber, onDialNumberChange, onMakeCall
     </div>
   )
 
+DialpadControls.propTypes = {
+  dialNumber: PropTypes.string,
+  isCalling: PropTypes.bool,
+  onDialNumberChange: PropTypes.func.isRequired,
+  onMakeCall: PropTypes.func.isRequired
+}
+
+DialpadControls.defaultProps = {
+  onDialNumberChange: () => {},
+  onMakeCall: () => {}
+}
+
 const Dialpad = () => {
   // TODO: remove strings from number
   const [dialNumber, setDialNumber] = useState('') // local state for dialpad number
@@ -56,7 +78,7 @@ const Dialpad = () => {
     setCallInfo
   } = useContext(Context)
 
-  const makeCallMutation = useMutation(MAKE_CALL, {
+  const makeCallMutation = useMutation(MUTATION_CALL, {
     variables: { number }
   })
 
