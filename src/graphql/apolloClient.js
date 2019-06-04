@@ -27,12 +27,12 @@ const createNetworkInterface = url =>
       timeout: 5000,
       uri: `wss://${url}`,
       options: {
-        reconnect: true
-      },
-      connectionParams: () => ({
-        Authorization: `Bearer ${localStorage.getItem('anvilToken')}`,
-        correlationId: shortid.generate()
-      })
+        reconnect: true,
+        connectionParams: () => ({
+          Authorization: `Bearer ${localStorage.getItem('anvilToken')}`,
+          correlationId: shortid.generate()
+        })
+      }
     }),
     authLink.concat(
       new HttpLink({
@@ -45,7 +45,7 @@ const getClient = url =>
   new ApolloClient({
     link: createNetworkInterface(url),
     cache: new InMemoryCache({
-      dataIdFromObject: o => o.id || o.key || o.agentId || o.anvilId
+      // dataIdFromObject: o => o.id || o.key || o.agentId || o.anvilId
     }),
     connectToDevTools: true
   })
