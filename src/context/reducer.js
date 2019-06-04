@@ -1,4 +1,4 @@
-import { setActivePage, showDialpad, setCallInfo } from './actions'
+import { setActivePage, showDialpad, setActiveCall } from './actions'
 
 export default (state, { type, data }) => {
   switch (type) {
@@ -13,13 +13,10 @@ export default (state, { type, data }) => {
         ...state,
         showDialpad: data
       }
-    case setCallInfo:
+    case setActiveCall:
       return {
         ...state,
-        isCalling: {
-          number: data.number,
-          direction: data.direction
-        }
+        activeCall: data
       }
     default:
       return state

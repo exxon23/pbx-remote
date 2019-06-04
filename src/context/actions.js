@@ -6,6 +6,6 @@ export const showDialpad = dispatch => data => {
   dispatch({ type: showDialpad, data })
 }
 
-export const setCallInfo = dispatch => data => {
-  dispatch({ type: setCallInfo, data })
+export const setActiveCall = dispatch => data => {
+  dispatch({ type: setActiveCall, data })
 }
