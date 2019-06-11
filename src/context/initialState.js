@@ -1,5 +1,5 @@
 export default {
   activePage: 'home',
-  showDialPad: false,
+  dialpadActive: false,
   activeCall: null
 }

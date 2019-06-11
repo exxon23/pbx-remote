@@ -1,8 +1,18 @@
 .App {
   position: relative;
   text-align: center;
+  width: 100vw;
+  height: 100vh;
+  // margin: 5rem auto;
+}
+
+.pbx-remote__wrapper {
+  border: 1px solid gray;
+  border-radius: 10px;
   width: 200px;
-  height: 300px;
+  height: auto;
+  margin: 5rem auto;
+  box-shadow: 6px 6px 22px -11px rgba(0,0,0,0.75);
 }
 
 button {

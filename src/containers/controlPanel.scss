@@ -1,28 +1,29 @@
-.pbx-remote__controlPanel-wrapper {
-    width: 100%;
-    height: 15%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-top: 1px solid gray;
-}
-
-.pbx-remote__control-panel-btn {
-    color: gray;
-    text-transform: uppercase;
-    border-radius: 5px;
-    display: inline-block;
-    border: none;
-    background: none;
-    padding: 0 1.2rem;
-    outline: 0;
-}
-
-.pbx-remote__control-panel-btn i {
-    & i {
-        font-size: 1.3rem;    
+.pbx-remote {
+    &__controlPanel-wrapper {
+        width: 100%;
+        height: 2.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top: 1px solid gray;
     }
-    &:hover {
-        color: rgb(92, 91, 91);
+
+    &__control-panel-btn {
+        color: gray;
+        text-transform: uppercase;
+        border-radius: 5px;
+        display: inline-block;
+        border: none;
+        background: none;
+        padding: 0 1.2rem;
+        outline: 0;
+
+        & i {
+            font-size: 1.3rem;    
+        }
+        
+        &:hover {
+            color: rgb(92, 91, 91);
+        }
     }
 }

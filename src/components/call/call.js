@@ -1,18 +1,47 @@
 import React, { useContext } from 'react'
+import { useMutation } from 'react-apollo-hooks'
 
+import { MUTATION_ENDCALL, MUTATION_DTMFSIGNAL } from '../../graphql/mutations'
 import { Context } from '../../context/context'
+import { TimeCounter } from '../../utils'
+import DialpadKeys from './callDialpadKeys'
+import DialpadControls from './callDialpadControls'
 import './call.scss'
 
-// TODO: add react hooks timer, UX for call in progress
 const Call = () => {
   const {
-    isCalling: { number }
+    dialpadActive,
+    activeCall: { number, entryTime },
+    showDialpad,
+    setDTMFSignal
   } = useContext(Context)
+
+  const makeEndCallMutation = useMutation(MUTATION_ENDCALL)
+  const makeDtmfSignalMutation = useMutation(MUTATION_DTMFSIGNAL)
+
+  const handleEndCall = () => {
+    makeEndCallMutation()
+    showDialpad(false)
+  }
+
+  const handleDialpadKeyClick = key => {
+    setDTMFSignal(number + key)
+    makeDtmfSignalMutation({
+      variables: { signal: key }
+    })
+  }
+
   return (
-    <>
-      <span>{number}</span>
-      <p>0:03</p>
-    </>
+    <div className="pbx-remote__call-wrapper">
+      <div>
+        <p className="pbx-remote__call-number">{number}</p>
+        <span className="pbx-remote__call-duration">
+          <TimeCounter format="mm:ss" initialTime={entryTime} />
+        </span>
+      </div>
+      {dialpadActive && <DialpadKeys onDialKeyClick={handleDialpadKeyClick} />}
+      <DialpadControls onCallEnd={handleEndCall} />
+    </div>
   )
 }
 

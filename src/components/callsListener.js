@@ -6,34 +6,47 @@ import gql from 'graphql-tag'
 
 const SUBSCRIPTION_CALL = gql`
   subscription {
-    calls {
+    callEvents {
       type
-      value {
-        agentId
-        callerId
-        callerIdentity
-        direction
+      parameters {
+        number
         entryTime
       }
     }
   }
 `
 const CallsListener = () => {
-  const { setActiveCall } = useContext(Context)
-  let { data = { calls: {} }, error } = useSubscription(SUBSCRIPTION_CALL)
+  const { setActiveCall, setActivePage, setCallEntryTime } = useContext(Context)
+  let { data = { callEvents: {} }, error } = useSubscription(SUBSCRIPTION_CALL)
 
   useEffect(() => {
-    const { type, value: call } = data.calls
+    const { type, parameters } = data.callEvents
     switch (type) {
-      case 'add':
-      case 'change':
-        setActiveCall(call)
+      case 'incoming':
+        setActiveCall(parameters)
+        setActivePage('ringing')
         break
-      case 'remove':
+      case 'outgoing':
+        setActiveCall(parameters)
+        setActivePage('inCall')
+        break
+      case 'rejectedIncoming':
         setActiveCall(null)
+        setActivePage('home')
+        break
+      case 'acceptedIncoming':
+        setCallEntryTime(parameters.entryTime)
+        setActivePage('inCall')
+        break
+      case 'ended':
+        setActiveCall(null)
+        setActivePage('home')
+        break
+      default:
+        console.log('Unsupported type ', type)
         break
     }
-  }, [data.calls.type])
+  }, [data.callEvents])
 
   if (error) {
     console.error('[SUBSCRIPTION]', error)
