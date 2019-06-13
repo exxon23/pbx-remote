@@ -9,3 +9,11 @@ export const showDialpad = dispatch => data => {
 export const setActiveCall = dispatch => data => {
   dispatch({ type: setActiveCall, data })
 }
+
+export const setDTMFSignal = dispatch => data => {
+  dispatch({ type: setDTMFSignal, data })
+}
+
+export const setCallEntryTime = dispatch => data => {
+  dispatch({ type: setCallEntryTime, data })
+}

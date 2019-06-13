@@ -10,12 +10,15 @@ import initialState from './context/initialState'
 import './App.scss'
 
 const App = () => (
-  <ApolloProvider client={getClient('ipbxapi-dev.voipex.io')}>
+  // <ApolloProvider client={getClient('ipbxapi-dev.voipex.io')}>
+  <ApolloProvider client={getClient('ipbx-api.localhost')}>
     <ContextProvider initialState={initialState}>
       <div className="App">
-        <CallsListener />
-        <Content />
-        <ControlPanel />
+        <div className="pbx-remote__wrapper">
+          <CallsListener />
+          <Content />
+          <ControlPanel />
+        </div>
       </div>
     </ContextProvider>
   </ApolloProvider>

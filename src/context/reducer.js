@@ -1,4 +1,10 @@
-import { setActivePage, showDialpad, setActiveCall } from './actions'
+import {
+  setActivePage,
+  showDialpad,
+  setActiveCall,
+  setDTMFSignal,
+  setCallEntryTime
+} from './actions'
 
 export default (state, { type, data }) => {
   switch (type) {
@@ -6,17 +12,33 @@ export default (state, { type, data }) => {
       return {
         ...state,
         activePage: state.activePage === data ? 'home' : data, // return to home screen if user click on same control button
-        showDialpad: data === 'phone' ? !state.showDialpad : state.showDialpad // default show dialpad if user click on dialpad button
+        dialpadActive: data === 'phone' ? !state.dialpadActive : state.dialpadActive // default show dialpad if user click on dialpad button
       }
     case showDialpad:
       return {
         ...state,
-        showDialpad: data
+        dialpadActive: data
       }
     case setActiveCall:
       return {
         ...state,
         activeCall: data
+      }
+    case setCallEntryTime:
+      return {
+        ...state,
+        activeCall: {
+          ...state.activeCall,
+          entryTime: data
+        }
+      }
+    case setDTMFSignal:
+      return {
+        ...state,
+        activeCall: {
+          ...state.activeCall,
+          number: data
+        }
       }
     default:
       return state
