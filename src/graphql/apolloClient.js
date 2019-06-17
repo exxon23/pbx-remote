@@ -1,11 +1,10 @@
-import ApolloClient from 'apollo-client'
-import { WebSocketLink } from 'apollo-link-ws'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { split } from 'apollo-link'
-import { HttpLink } from 'apollo-link-http'
 import { getMainDefinition } from 'apollo-utilities'
-import shortid from 'shortid'
+import { WebSocketLink } from 'apollo-link-ws'
+import { HttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
+import { split } from 'apollo-link'
+import ApolloClient from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('anvilToken')
@@ -29,8 +28,7 @@ const createNetworkInterface = url =>
       options: {
         reconnect: true,
         connectionParams: () => ({
-          Authorization: `Bearer ${localStorage.getItem('anvilToken')}`,
-          correlationId: shortid.generate()
+          Authorization: `Bearer ${localStorage.getItem('anvilToken')}`
         })
       }
     }),
@@ -44,9 +42,7 @@ const createNetworkInterface = url =>
 const getClient = url =>
   new ApolloClient({
     link: createNetworkInterface(url),
-    cache: new InMemoryCache({
-      // dataIdFromObject: o => o.id || o.key || o.agentId || o.anvilId
-    }),
+    cache: new InMemoryCache(),
     connectToDevTools: true
   })
 
