@@ -6,38 +6,43 @@ import { split } from 'apollo-link'
 import ApolloClient from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('anvilToken')
-  return {
-    headers: {
-      ...headers,
-      Authorization: token ? `Bearer ${token}` : ''
-    }
-  }
-})
-
-const createNetworkInterface = url =>
-  split(
-    ({ query }) => {
-      const definition = getMainDefinition(query)
-      return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
-    },
-    new WebSocketLink({
-      timeout: 5000,
-      uri: `wss://${url}`,
-      options: {
-        reconnect: true,
-        connectionParams: () => ({
-          Authorization: `Bearer ${localStorage.getItem('anvilToken')}`
-        })
-      }
-    }),
-    authLink.concat(
-      new HttpLink({
-        uri: `https://${url}/graphql`
+const createNetworkInterface = url => {
+  const wsLink = new WebSocketLink({
+    timeout: 5000,
+    uri: `wss://${url}`,
+    options: {
+      reconnect: true,
+      connectionParams: () => ({
+        Authorization: `Bearer ${localStorage.getItem('anvilToken')}`
       })
-    )
+    }
+  })
+
+  const httpLink = new HttpLink({
+    uri: `https://${url}/graphql`
+  })
+
+  const authLink = setContext((request, previousContext) => {
+    const token = localStorage.getItem('anvilToken')
+    return {
+      headers: {
+        ...previousContext.headers,
+        Authorization: token ? `Bearer ${token}` : ''
+      }
+    }
+  })
+
+  const authHttpLink = authLink.concat(httpLink)
+
+  return split(
+    ({ query }) => {
+      const { kind, operation } = getMainDefinition(query)
+      return kind === 'OperationDefinition' && operation === 'subscription'
+    },
+    wsLink,
+    authHttpLink
   )
+}
 
 const getClient = url =>
   new ApolloClient({
