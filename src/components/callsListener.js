@@ -16,11 +16,14 @@ const SUBSCRIPTION_CALL = gql`
   }
 `
 const CallsListener = () => {
-  const { setActiveCall, setActivePage, setCallEntryTime } = useContext(Context)
+  const { authorized, setAuthorized, setActiveCall, setActivePage, setCallEntryTime } = useContext(
+    Context
+  )
   let { data = { callEvents: {} }, error } = useSubscription(SUBSCRIPTION_CALL)
-
   useEffect(() => {
     const { type, parameters } = data.callEvents
+    if (!error && !authorized) setAuthorized(true)
+
     switch (type) {
       case 'incoming':
         setActiveCall(parameters)
@@ -50,6 +53,10 @@ const CallsListener = () => {
 
   if (error) {
     console.error('[SUBSCRIPTION]', error)
+    if (authorized) {
+      setAuthorized(false)
+      localStorage.removeItem('anvilToken')
+    }
     return <Error reason={error.message} />
   }
 

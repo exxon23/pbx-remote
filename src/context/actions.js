@@ -17,3 +17,7 @@ export const setDTMFSignal = dispatch => data => {
 export const setCallEntryTime = dispatch => data => {
   dispatch({ type: setCallEntryTime, data })
 }
+
+export const setAuthorized = dispatch => data => {
+  dispatch({ type: setAuthorized, data })
+}
