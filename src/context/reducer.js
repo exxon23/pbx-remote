@@ -3,7 +3,8 @@ import {
   showDialpad,
   setActiveCall,
   setDTMFSignal,
-  setCallEntryTime
+  setCallEntryTime,
+  setAuthorized
 } from './actions'
 
 export default (state, { type, data }) => {
@@ -39,6 +40,11 @@ export default (state, { type, data }) => {
           ...state.activeCall,
           number: data
         }
+      }
+    case setAuthorized:
+      return {
+        ...state,
+        authorized: data
       }
     default:
       return state
