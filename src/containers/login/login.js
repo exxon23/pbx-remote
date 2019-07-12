@@ -14,7 +14,7 @@ const Login = () => {
     try {
       const {
         data: { access_token }
-      } = await axios.post('https://restapi-devel.ipex.cz/v1/sso/login', {
+      } = await axios.post('https://restapi.ipex.cz/v1/sso/login', {
         email,
         password
       })

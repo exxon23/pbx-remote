@@ -13,11 +13,9 @@ $color: rgb(92, 91, 91);
       height: 60px;
       width: 100%;
       font-size: 20px;
-      background: darken($color, 4%);
-      color: white;
+      color: $color;
       line-height: 150%;
       border-radius: 3px 3px 0 0;
-      box-shadow: 0 2px 5px 1px rgba(0,0,0,0.2);
       transition: all 0.3s ease-in-out;
     }
   }

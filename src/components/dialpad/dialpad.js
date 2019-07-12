@@ -14,10 +14,7 @@ const Dialpad = () => {
 
   const handleMakeCall = () => {
     makeCallMutation({
-      variables: { number: dialNumber },
-      update: (proxy, mutationResult) => {
-        console.log('mutationResult', mutationResult)
-      }
+      variables: { number: dialNumber }
     })
   }
 

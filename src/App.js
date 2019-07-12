@@ -8,7 +8,7 @@ import initialState from './context/initialState'
 import './App.scss'
 
 const App = () => (
-  <ApolloProvider client={getClient('ipbxapi-dev.voipex.io')}>
+  <ApolloProvider client={getClient('ipbxapi.voipex.io')}>
     <ContextProvider initialState={initialState}>
       <div className="App">
         <Phone />

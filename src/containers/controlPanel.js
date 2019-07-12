@@ -4,18 +4,18 @@ import { Context } from '../context/context'
 import './controlPanel.scss'
 
 const controlButtons = [
-  {
-    icon: 'perm_contact_calendar',
-    page: 'contacts'
-  },
+  // {
+  //   icon: 'perm_contact_calendar',
+  //   page: 'contacts'
+  // },
   {
     icon: 'dialpad',
     page: 'phone'
-  },
-  {
-    icon: 'history',
-    page: 'history'
   }
+  // {
+  //   icon: 'history',
+  //   page: 'history'
+  // }
 ]
 
 const ControlPanel = () => {
