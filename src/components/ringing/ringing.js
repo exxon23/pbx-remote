@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useMutation } from 'react-apollo-hooks'
+import { useMutation } from '@apollo/react-hooks'
 
 import { MUTATION_REJECTCALL, MUTATION_ANSWERCALL } from '../../graphql/mutations'
 import { Context } from '../../context/context'
@@ -7,12 +7,16 @@ import './ringing.scss'
 
 const Ringing = () => {
   const {
-    activeCall: { number }
+    activeCall: { number },
+    setAuthorized
   } = useContext(Context)
 
-  const answerCallMutation = useMutation(MUTATION_ANSWERCALL)
-  const rejectCallMutation = useMutation(MUTATION_REJECTCALL)
-
+  const [answerCallMutation, { answerCallError }] = useMutation(MUTATION_ANSWERCALL)
+  const [rejectCallMutation, { rejectCallError }] = useMutation(MUTATION_REJECTCALL)
+  if (answerCallError || rejectCallError) {
+    setAuthorized(false)
+    localStorage.removeItem('anvilToken')
+  }
   return (
     <div className="pbx-remote__ringing-wrapper">
       <p className="pbx-remote__ringing-number">{number}</p>

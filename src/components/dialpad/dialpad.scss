@@ -19,6 +19,7 @@
         text-align: center;
         border: none;
         border-radius: 10px;
+        outline: none;
     }
 
     &__dialpad-button {
@@ -50,14 +51,16 @@
     }
 
     &__dialpad-call-btn {
+        display: flex;
+        justify-content: center;
         color: #fff;
         text-transform: uppercase;
         background: #AFBF27;
         border-radius: 50%;
-        display: inline-block;
         border: none;
         width: 3rem;
         height: 3rem;
+        outline: none;
     }
 
     &__dialpad-back-btn {

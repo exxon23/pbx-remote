@@ -4,7 +4,8 @@ import {
   setActiveCall,
   setDTMFSignal,
   setCallEntryTime,
-  setAuthorized
+  setAuthorized,
+  setCallHold
 } from './actions'
 
 export default (state, { type, data }) => {
@@ -39,6 +40,14 @@ export default (state, { type, data }) => {
         activeCall: {
           ...state.activeCall,
           number: data
+        }
+      }
+    case setCallHold:
+      return {
+        ...state,
+        activeCall: {
+          ...state.activeCall,
+          isHolded: data
         }
       }
     case setAuthorized:
