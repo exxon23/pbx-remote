@@ -28,6 +28,41 @@
         padding: .6rem;
     }
 
+    &__call-controls-secondary {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: row;
+    }
+
+    &__call-controls-secondary-btn {
+        color: gray;
+        border: none;
+        background: none;
+        cursor: pointer; 
+        outline: none;
+        padding: .5rem .9rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1 0 33.3333%;
+        label {
+            font-size: 8px;
+        }
+        &:hover {
+            color: rgb(92, 91, 91);
+        }
+    }
+
+    &__call-controls {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
     &__callend-btn {
         color: #fff;
         text-transform: uppercase;
@@ -38,5 +73,6 @@
         height: 3rem;
         border: none;
         margin-bottom: .6rem;
+        outline: none;
     }
 }

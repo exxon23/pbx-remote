@@ -21,3 +21,7 @@ export const setCallEntryTime = dispatch => data => {
 export const setAuthorized = dispatch => data => {
   dispatch({ type: setAuthorized, data })
 }
+
+export const setCallHold = dispatch => data => {
+  dispatch({ type: setCallHold, data })
+}

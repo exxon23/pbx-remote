@@ -1,5 +1,5 @@
 import React from 'react'
-import { ApolloProvider } from 'react-apollo-hooks'
+import { ApolloProvider } from '@apollo/react-hooks'
 import getClient from './graphql/apolloClient'
 
 import { ContextProvider } from './context/context'

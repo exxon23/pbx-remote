@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 
-import { Call, Home, Dialpad, Ringing } from '../components'
+import { Call, Home, Dialpad, Ringing, Transfer } from '../components'
 import { Context } from '../context/context'
 import './content.scss'
 
@@ -19,6 +19,7 @@ const Content = () => {
         {activePage === 'phone' && <Dialpad />}
         {activePage === 'inCall' && <Call />}
         {activePage === 'ringing' && <Ringing />}
+        {activePage === 'transfer' && <Transfer />}
       </div>
     </>
   )

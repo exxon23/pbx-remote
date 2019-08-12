@@ -1,23 +1,29 @@
 import React, { useContext } from 'react'
-import { useMutation } from 'react-apollo-hooks'
+import { useMutation } from '@apollo/react-hooks'
 
-import { MUTATION_ENDCALL, MUTATION_DTMFSIGNAL } from '../../graphql/mutations'
+import {
+  MUTATION_ENDCALL,
+  MUTATION_DTMFSIGNAL,
+  MUTATION_TOGGLEHOLDONCALL
+} from '../../graphql/mutations'
 import { Context } from '../../context/context'
 import { TimeCounter } from '../../utils'
-import DialpadKeys from './callDialpadKeys'
+import DialpadKeys from '../dialpad/dialpadKeys'
 import DialpadControls from './callDialpadControls'
 import './call.scss'
 
 const Call = () => {
   const {
     dialpadActive,
-    activeCall: { number, entryTime },
+    activeCall: { number, entryTime, isHolded },
     showDialpad,
-    setDTMFSignal
+    setDTMFSignal,
+    setActivePage
   } = useContext(Context)
 
-  const makeEndCallMutation = useMutation(MUTATION_ENDCALL)
-  const makeDtmfSignalMutation = useMutation(MUTATION_DTMFSIGNAL)
+  const [makeEndCallMutation] = useMutation(MUTATION_ENDCALL)
+  const [makeDtmfSignalMutation] = useMutation(MUTATION_DTMFSIGNAL)
+  const [toggleHoldCallMutation] = useMutation(MUTATION_TOGGLEHOLDONCALL)
 
   const handleEndCall = () => {
     makeEndCallMutation()
@@ -39,8 +45,13 @@ const Call = () => {
           <TimeCounter format="mm:ss" initialTime={entryTime} />
         </span>
       </div>
-      {dialpadActive && <DialpadKeys onDialKeyClick={handleDialpadKeyClick} />}
-      <DialpadControls onCallEnd={handleEndCall} />
+      {dialpadActive && <DialpadKeys onDialpadKeyClick={handleDialpadKeyClick} />}
+      <DialpadControls
+        isHolded={isHolded}
+        onCallEnd={handleEndCall}
+        onHoldCall={toggleHoldCallMutation}
+        onTransferCall={() => setActivePage('transfer')}
+      />
     </div>
   )
 }

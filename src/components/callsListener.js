@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { useSubscription } from 'react-apollo-hooks'
+import { useSubscription } from '@apollo/react-hooks'
 import { Context } from '../context/context'
 import { Error } from '../components'
 import gql from 'graphql-tag'
@@ -11,14 +11,21 @@ const SUBSCRIPTION_CALL = gql`
       parameters {
         number
         entryTime
+        value
+        type
       }
     }
   }
 `
 const CallsListener = () => {
-  const { authorized, setAuthorized, setActiveCall, setActivePage, setCallEntryTime } = useContext(
-    Context
-  )
+  const {
+    authorized,
+    setAuthorized,
+    setActiveCall,
+    setActivePage,
+    setCallEntryTime,
+    setCallHold
+  } = useContext(Context)
   let { data = { callEvents: {} }, error } = useSubscription(SUBSCRIPTION_CALL)
   useEffect(() => {
     const { type, parameters } = data.callEvents
@@ -44,6 +51,9 @@ const CallsListener = () => {
       case 'ended':
         setActiveCall(null)
         setActivePage('home')
+        break
+      case 'hold':
+        setCallHold(parameters.value)
         break
       default:
         console.log('Unsupported type ', type)

@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const DialpadKeys = ({ dialNumber, onDialNumberChange }) => (
+const DialpadKeys = ({ onDialpadKeyClick }) => (
   <div className="pbx-remote__dialpad">
     {[...Array(9)].map((elem, idx) => (
       <div
         key={idx + 1}
         className="pbx-remote__dialpad-button"
-        onClick={() => onDialNumberChange(dialNumber + (idx + 1).toString())}
+        onClick={() => onDialpadKeyClick((idx + 1).toString())}
       >
         {idx + 1}
       </div>
@@ -16,7 +16,7 @@ const DialpadKeys = ({ dialNumber, onDialNumberChange }) => (
       <div
         key={elem}
         className="pbx-remote__dialpad-button"
-        onClick={() => onDialNumberChange(dialNumber + elem)}
+        onClick={() => onDialpadKeyClick(elem)}
       >
         {elem}
       </div>
@@ -25,12 +25,11 @@ const DialpadKeys = ({ dialNumber, onDialNumberChange }) => (
 )
 
 DialpadKeys.propTypes = {
-  dialNumber: PropTypes.string,
-  onDialNumberChange: PropTypes.func
+  onDialpadKeyClick: PropTypes.func
 }
 
 DialpadKeys.defaultProps = {
-  onDialNumberChange: () => {}
+  onDialpadKeyClick: () => {}
 }
 
 export default DialpadKeys

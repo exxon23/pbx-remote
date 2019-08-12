@@ -30,10 +30,24 @@ const MUTATION_ANSWERCALL = gql`
   }
 `
 
+const MUTATION_TRANSFERCALL = gql`
+  mutation transferCall($number: String!, $type: XferType) {
+    sendRemoteCommand(command: transferCall, parameters: { number: $number, type: $type })
+  }
+`
+
+const MUTATION_TOGGLEHOLDONCALL = gql`
+  mutation toggleHoldOnCall {
+    sendRemoteCommand(command: toggleHold, parameters: {})
+  }
+`
+
 export {
   MUTATION_ENDCALL,
   MUTATION_DTMFSIGNAL,
   MUTATION_MAKECALL,
   MUTATION_REJECTCALL,
-  MUTATION_ANSWERCALL
+  MUTATION_ANSWERCALL,
+  MUTATION_TRANSFERCALL,
+  MUTATION_TOGGLEHOLDONCALL
 }
