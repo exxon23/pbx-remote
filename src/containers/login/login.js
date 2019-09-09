@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import axios from 'axios'
 
+import { RESTAPI } from '../../env.json'
 import { Context } from '../../context/context'
 import './login.scss'
 
@@ -14,7 +15,7 @@ const Login = () => {
     try {
       const {
         data: { access_token }
-      } = await axios.post('https://restapi.ipex.cz/v1/sso/login', {
+      } = await axios.post(`https://${RESTAPI}/v1/sso/login`, {
         email,
         password
       })

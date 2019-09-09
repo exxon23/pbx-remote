@@ -59,7 +59,7 @@ const CallsListener = () => {
         console.log('Unsupported type ', type)
         break
     }
-  }, [data.callEvents])
+  }, [data.callEvents, error])
 
   if (error) {
     console.error('[SUBSCRIPTION]', error)
