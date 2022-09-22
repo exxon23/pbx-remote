@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import axios from 'axios'
 
-import { RESTAPI } from '../../env.json'
+import { AUTHAPI } from '../../env.json'
 import { Context } from '../../context/context'
 import './login.scss'
 
@@ -15,9 +15,16 @@ const Login = () => {
     try {
       const {
         data: { access_token }
-      } = await axios.post(`https://${RESTAPI}/v1/sso/login`, {
-        email,
-        password
+      } = await axios({
+          method: 'POST',
+          url: `https://${AUTHAPI}/token`,
+          data: new URLSearchParams({
+            client_id: 'api',
+            username: email,
+            password: password,
+            grant_type: 'password'
+          }),
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       })
       localStorage.setItem('anvilToken', access_token)
       if (localStorage.getItem('anvilToken')) {
